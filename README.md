@@ -16,3 +16,4 @@ Pinout List
 - Stepper2 - 41
 - Stepper3 - 42
 - Stepper4 - 43
+- Pins 1,3,4 are used by SPI communication
