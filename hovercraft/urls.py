@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+
 # from django.http import HttpResponse
 
 admin.autodiscover()
@@ -17,6 +18,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/', include('login.urls', namespace="login")),
     url(r'^$', index),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

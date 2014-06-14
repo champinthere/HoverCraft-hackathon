@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}HoverCraft | Sign In{% endblock %}
+{% block content %}
+<form action="{% url "login:create" %}" method="post">{% csrf_token %}
+    <input type="text" name="name"> <label>Username</label><br />
+    <input type="email" name="email"> <label>Email</label><br />
+    <input type="password" name="password"> <label>Password</label><br />
+    <input type="password" name="password_confirmation"> <label>Password Confirmation</label><br />
+    <input type="submit">
+</form>
+{% endblock %}
