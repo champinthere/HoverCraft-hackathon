@@ -13,5 +13,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^new', 'login.views.new', name='new'),
     url(r'^create', 'login.views.create', name='create'),
-    url(r'^view', 'login.views.view', name='view')
+    url(r'^view', 'login.views.view', name='view'),
+    url(r'^signin', 'login.views.signin', name='signin'),
+    url(r'^validate', 'login.views.validateSignIn', name='validate'),
+    url(r'^logout', 'login.views.logout', name='logout'),
 )
