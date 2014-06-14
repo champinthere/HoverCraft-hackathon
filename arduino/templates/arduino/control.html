@@ -2,10 +2,11 @@
 {% block title %}HoverCraft | Control{% endblock %}
 {% block content %}
 <form action="{% url "robot:manage" %}" method="post">{% csrf_token %}
-    <input type="submit" name="left" value="left">
-    <input type="submit" name="right" value="right">
-    <input type="submit" name="forward" value="forward">
-    <input type="submit" name="backward" value="backward">
-    <input type="submit" name="up" value="up">
+    <input type="submit" class = 'btn btn-default' name="left" value="left">
+    <input type="submit" class = 'btn btn-default' name="right" value="right">
+    <input type="submit" class = 'btn btn-default' name="forward" value="forward">
+    <input type="submit" class = 'btn btn-default' name="backward" value="backward">
+    <input type="submit" class = 'btn btn-default' name=class = 'btn btn-default' "up" value="up">
+    <input type="submit" class = 'btn btn-default' name="stop" value="stop">
 </form>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 # from django.core.context_processors import csrf
@@ -7,7 +7,7 @@ import models
 # Create your views here.
 
 from Crypto.Hash import SHA256
-
+from django.db import IntegrityError
 from Crypto.Random.random import getrandbits
 
 SECURITY = 9876
@@ -22,12 +22,18 @@ def permute(seed, salt):
 def create(request):
     v = request.POST
     if not v["password"] or not v["password_confirmation"] or not v["password"] == v["password_confirmation"]:
-        return redirect(reverse(new))
+        return render(request, 'login/new.html', {'error_message': 'Passwords do not match'})
+    if not len(v["password"]) > 5:
+        return render(request, 'login/new.html', {'error_message': 'Password too short'})
     salty = hex(getrandbits(64))[2:-1]
     user = models.AppUser(email=v["email"],
         password=permute(v["password"].encode('utf-8'), salty), plan=0, salt=salty, name=v["name"])
-    user.save()
+    try:
+        user.save()
+    except IntegrityError:
+        return render(request, 'login/new.html', {'error_message': 'Email and Username must be unique'})
     request.session["user"] = user.email
+    request.session["isnew"] = user.name + ", you have successfully created your account"
     return redirect(reverse("login:view"))
 
 def view(request):
@@ -37,6 +43,11 @@ def view(request):
         user = getUser(request.session["user"])
         if not user:
             return redirect(reverse("login:new"))
+        if "isnew" in request.session:
+            x = request.session.pop("isnew", None)
+            return render_to_response('login/view.html',
+                                          {'user': user, 'success_message': x},
+                                          context_instance=RequestContext(request))
         return render_to_response('login/view.html',
                                       {'user': user},
                                       context_instance=RequestContext(request))
@@ -74,7 +85,14 @@ def getUser(anemail):
     return models.AppUser.objects.get(email=anemail)
 
 def logout(request):
+    x = ''
+    if 'logout_error' in request.session:
+        x = request.session['logout_error']
+    elif not 'user' in request.session:
+        x = 'Please sign in'
+    else:
+        x = 'Please sign in'
     request.session.flush()
-    return redirect(reverse("login:signin"))
+    return render(request, "login/signin.html", {'error_message': x})
 
 

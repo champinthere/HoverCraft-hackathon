@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}HoverCraft | Register{% endblock %}
 {% block content %}
-<form action="{% url "login:create" %}" method="post">{% csrf_token %}
-    <input type="text" name="name"> <label>Username</label><br />
-    <input type="email" name="email"> <label>Email</label><br />
-    <input type="password" name="password"> <label>Password</label><br />
-    <input type="password" name="password_confirmation"> <label>Password Confirmation</label><br />
-    <input type="submit">
+<form action="{% url "login:create" %}" method="post" style="width:50%; display: inline-block;">{% csrf_token %}
+    <label>Username</label><input type="text" class="form-control" name="name"> <br />
+    <label>Email</label><input type="email" class="form-control" name="email"> <br />
+    <label>Password</label><input type="password" class="form-control" name="password"> <br />
+    <label>Password Confirmation</label><input type="password" class="form-control" name="password_confirmation"> <br />
+    <input type="submit" class="btn btn-default btn-primary" style="width:100%">
 </form>
 {% endblock %}

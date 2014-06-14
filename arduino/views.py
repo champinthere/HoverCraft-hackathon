@@ -13,7 +13,7 @@ class HoverCraftDelegate(object):
         return self.ser.readline()
 
     def moveLeft(self):
-        self.ser.write(b'2')
+        self.ser.write(b'77')
 
     def moveRight(self):
         self.ser.write(b'0')
@@ -27,9 +27,12 @@ class HoverCraftDelegate(object):
     def moveUp(self):
         self.ser.write(b'4')
 
+    def stop(self):
+        self.ser.write(b'9')
+
 delegate = None
 try:
-     delegate = HoverCraftDelegate('uuid')
+    delegate = HoverCraftDelegate('/dev/cu.usbmodem1411')
 except Exception:
     pass
 
@@ -49,6 +52,7 @@ def control(request):
 # Create your views here.
 def manage(request):
     try:
+        delegate.ser.write(b'thisisastring')
         if not AppUser.validate(request.session["user"]):
             return redirect(reverse("login:logout"))
         elif "left" in request.POST:
@@ -61,7 +65,10 @@ def manage(request):
             delegate.moveBackward();
         elif "up" in request.POST:
             delegate.moveUp();
+        elif "stop" in request.POST:
+            delegate.stop()
         return redirect("robot:control")
 
     except Exception:
+        request.session['logout_error'] = 'Error in Arduino communication. You have been logged out'
         return redirect(reverse("login:logout"))

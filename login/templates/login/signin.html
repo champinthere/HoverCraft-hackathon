@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}HoverCraft | Sign In{% endblock %}
 {% block content %}
-<form action="{% url "login:validate" %}" method="post">{% csrf_token %}
-    <input type="email" name="email"> <label>Email</label><br />
-    <input type="password" name="password"> <label>Password</label><br />
-    <input type="submit" value="Sign In Now">
+<form action="{% url "login:validate" %}" method="post" style="width:50%">{% csrf_token %}
+    <label>Email</label><input type="email" class="form-control" name="email"> <br />
+    <label>Password</label><input type="password" class="form-control" name="password"> <br />
+    <input type="submit" class="btn btn-default" value="Sign In Now">
 </form>
 {% endblock %}
