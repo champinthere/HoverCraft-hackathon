@@ -1,3 +1,4 @@
+import key
 """
 Django settings for hovercraft project.
 
@@ -17,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mh4o7=_#e+yp=qmpsf$hay(b=mq5w&lz4%d(-cs=b1lm(m#d^6'
+SECRET_KEY = key.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,8 +58,11 @@ WSGI_APPLICATION = 'hovercraft.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_hovercraft_db',
+        'USER': 'django_hovercraft',
+        'PASSWORD': key.DATABASE_PASSWORD,
+        'HOST': ''
     }
 }
 
@@ -80,3 +84,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
