@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <link
         href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300'
         rel='stylesheet'
         type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
     <title>{% block title %}Double d HoverCrafts{% endblock %}</title>
 </head>
 <body>
@@ -65,5 +66,5 @@
     </nav>
 
     <div class="container-fluid" id="contentarea">
-        {% block bodyclass %} {% endblock %}
+        {% block content %} {% endblock %}
     </div>
