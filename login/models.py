@@ -7,3 +7,14 @@ class AppUser(models.Model):
     salt = models.CharField(blank=False, max_length=16)
     plan = models.IntegerField(blank=False, null=False)
     email = models.EmailField(primary_key = True, max_length=200)
+
+    @staticmethod
+    def validate(anemail):
+        try:
+            user = AppUser.objects.get(email=anemail)
+            if (not user):
+                return False
+            return True
+        except Exception:
+            return False
+

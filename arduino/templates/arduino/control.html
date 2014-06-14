@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}HoverCraft | Control{% endblock %}
+{% block content %}
+<form action="{% url "robot:manage" %}" method="post">{% csrf_token %}
+    <input type="submit" name="left" value="left">
+    <input type="submit" name="right" value="right">
+    <input type="submit" name="forward" value="forward">
+    <input type="submit" name="backward" value="backward">
+    <input type="submit" name="up" value="up">
+</form>
+{% endblock %}

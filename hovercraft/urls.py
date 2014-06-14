@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/', include('login.urls', namespace="login")),
+    url(r'^robot/', include('arduino.urls', namespace="robot")),
     url(r'^$', index),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
